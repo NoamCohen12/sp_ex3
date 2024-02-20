@@ -2,6 +2,7 @@
 #include "StrList.h"
 #include <string.h>
 
+
 typedef struct _node
 {
     char *data;
@@ -15,6 +16,9 @@ struct _StrList
 };
 
 typedef struct _StrList StrList;
+Node *Node_alloc(char *data, Node *next);
+
+void StrList_swap( Node** node1, Node** node2);
 
 Node *Node_alloc(char *data, Node *next)
 {
@@ -62,16 +66,74 @@ void StrList_insertLast(StrList *StrList, const char *data)
 {
     Node *p1 = StrList->_head;
     Node *p2;
+
+    // Check if the list is empty
+    if (p1 == NULL) {
+        Node *new_node = (Node *)malloc(sizeof(Node));
+        if (new_node == NULL) {
+            // Handle memory allocation failure
+            return;
+        }
+        new_node->data = strdup(data);
+        new_node->next = NULL;
+        StrList->_head = new_node;  // Update the head of the list
+        return;
+    }
+
+    // Traverse the list to find the last node
     while (p1->next != NULL)
     {
         p2 = p1;
         p1 = p1->next;
     }
+
+    // Create a new node and insert it at the end
     Node *new_node = (Node *)malloc(sizeof(Node));
-    new_node->data = data;
+    if (new_node == NULL) {
+        // Handle memory allocation failure
+        return;
+    }
+    new_node->data = strdup(data);
     new_node->next = NULL;
     p1->next = new_node;
 }
+
+// { 
+//     Node *p1 = StrList->_head;
+//     Node *p2;
+
+//     // Handle the case when the list is empty
+//     if (p1 == NULL) {
+//         Node *new_node = (Node *)malloc(sizeof(Node));
+//         if (new_node == NULL) {
+//             // Handle memory allocation failure
+//             return;
+//         }
+//         new_node->data = strdup(data);
+//         new_node->next = NULL;
+//         StrList->_head = new_node;
+//         return;
+//     }
+
+//     // Traverse the list to find the last node
+//     while (p1->next != NULL)
+//     {
+//         p2 = p1;
+//         p1 = p1->next;
+        
+//     }
+
+//     // Create a new node and insert it at the end
+//     Node *new_node = (Node *)malloc(sizeof(Node));
+//     if (new_node == NULL) {
+//         // Handle memory allocation failure
+//         return;
+//     }
+//     new_node->data = strdup(data);
+//     new_node->next = NULL;
+//     p1->next = new_node;
+// }
+
 
 void StrList_insertAt(StrList *StrList, const char *data, int index)
 {
@@ -87,7 +149,8 @@ void StrList_insertAt(StrList *StrList, const char *data, int index)
         {
             return; // Handle memory allocation failure
         }
-        new_node->data = data;
+        // new_node->data = data;
+        new_node->data = strdup(data);
         new_node->next = StrList->_head;
         StrList->_head = new_node;
         return;
@@ -112,7 +175,8 @@ void StrList_insertAt(StrList *StrList, const char *data, int index)
     {
         return; // Handle memory allocation failure
     }
-    new_node->data = data;
+    // new_node->data = data;
+    new_node->data = strdup(data);
     new_node->next = p1;
     p2->next = new_node;
 }
@@ -139,7 +203,7 @@ void StrList_print(const StrList *StrList)
     Node *current = StrList->_head;
     while (current != NULL)
     {
-        printf("%s\n", current->data);
+        printf("%s ", current->data);
         current = current->next;
     }
 }
@@ -332,7 +396,7 @@ int StrList_isEqual(const StrList *StrList1, const StrList *StrList2)
     }
     return -1;
 }
-StrList *StrList_clone(const StrList *StrList) //////////////////TODO
+StrList *StrList_clone(const StrList *StrList) 
 {
 
     if (StrList == NULL || StrList->_head == NULL)
@@ -396,7 +460,7 @@ void StrList_sort(StrList *StrList)
         {
             if (strcmp(pre->data, current->data) > 0)
             {
-                Swap(&pre, &current);
+                StrList_swap(&pre, &current);
                 //swapped = 1; // Set the flag to 1 indicating a swap occurred
             }
 
@@ -406,6 +470,17 @@ void StrList_sort(StrList *StrList)
     } while (!StrList_isSorted(StrList)); // Continue sorting until no swaps occur
 }
 
+
+void StrList_swap(Node** node1, Node** node2) {
+    char* tmp = (*node1)->data;
+    (*node1)->data = (*node2)->data;
+    (*node2)->data = tmp;
+
+
+
+
+
+}
 int StrList_isSorted(StrList *StrList)
 {
 
