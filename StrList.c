@@ -77,6 +77,7 @@ void StrList_insertLast(StrList *StrList, const char *data)
         new_node->data = strdup(data);
         new_node->next = NULL;
         StrList->_head = new_node;  // Update the head of the list
+        StrList->_size++;
         return;
     }
 
@@ -96,6 +97,8 @@ void StrList_insertLast(StrList *StrList, const char *data)
     new_node->data = strdup(data);
     new_node->next = NULL;
     p1->next = new_node;
+     StrList->_size++;
+
 }
 
 // { 
@@ -193,18 +196,19 @@ void StrList_print(const StrList *StrList)
         printf("Invalid StrList pointer\n");
         return;
     }
-    printf("StrList contents:\n");
 
     if (StrList->_head == NULL)
     {
         printf("List is empty\n");
         return;
     }
+    if (StrList!= NULL){
     Node *current = StrList->_head;
     while (current != NULL)
     {
         printf("%s ", current->data);
         current = current->next;
+    }
     }
 }
 void StrList_printAt(const StrList *Strlist, int index)
@@ -253,12 +257,13 @@ int StrList_count(StrList *StrList, const char *data)
     int count = 0;
     Node *current = StrList->_head;
     while (current != NULL)
+    //new_node->data = strdup(data);
     {
         if (strcmp(current->data, data) == 0)
         {
-            current = current->next;
             count++;
         }
+        current = current->next;
     }
     return count;
 }
@@ -303,6 +308,7 @@ void StrList_remove(StrList *StrList, const char *data)
             {
                 pre->next = current->next;
             }
+            StrList->_size--;
             free(current->data);
             free(current);
             return;
@@ -353,6 +359,7 @@ void StrList_removeAt(StrList *StrList, int index)
                 {
                     pre->next = current->next;
                 }
+                StrList->_size--;
                 free(current->data);
                 free(current);
                 return;

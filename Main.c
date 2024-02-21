@@ -2,36 +2,33 @@
 #include <stdio.h>
 int main()
 {
-    struct _StrList *user_list = StrList_alloc();
-    int choice ;
-
-   
-    scanf("%d", &choice);
     
+    struct _StrList *user_list = StrList_alloc();
+    int choice;
+
+    scanf("%d", &choice);
+
     while (choice)
     {
         if (choice == 1)
         {
-            printf("in 1\n");
             int num_of_words = 0;
             scanf("%d", &num_of_words);
-            printf("done num_of_words\n");
+           // printf("%d", num_of_words);
             for (size_t i = 0; i < num_of_words; i++)
             {
                 char String[100];
                 scanf("%s", String);
                 StrList_insertLast(user_list, String);
-                
             }
-            printf("done 1\n");
         }
         if (choice == 2)
         {
-             int index = 0;
+            int index = 0;
             scanf("%d", &index);
             char String[100];
             scanf("%s", String);
-            StrList_insertAt(user_list, String,index);
+            StrList_insertAt(user_list, String, index);
         }
         if (choice == 3)
         {
@@ -40,27 +37,27 @@ int main()
         }
         if (choice == 4)
         {
-            int len = StrList_printLen(user_list);
-            printf("%d", len);
+            int len = StrList_size(user_list);
+            printf("%d\n", len);
         }
         if (choice == 5)
         {
             int index = 0;
             scanf("%d", &index);
             StrList_printAt(user_list, index);
-                        printf("\n");
-
+            printf("\n");
         }
         if (choice == 6)
         {
-            int size = StrList_size(user_list);
-            printf("%d", size);
+            int size = StrList_printLen(user_list);
+            printf("%d\n", size);
         }
         if (choice == 7)
         {
             char String[100];
             scanf("%s", String);
-            StrList_count(user_list, String);
+            int count = StrList_count(user_list, String);
+            printf("%d" , count);
         }
         if (choice == 8)
         {
@@ -81,6 +78,10 @@ int main()
         if (choice == 11)
         {
             StrList_free(user_list);
+            //todo check what to print if trt "3" after "free"
+            //-------------------------------------------------------------------------------
+            user_list = StrList_alloc();
+
         }
         if (choice == 12)
         {
@@ -93,10 +94,12 @@ int main()
             {
                 printf("false\n");
             }
-            printf("true");
+            else
+            {
+                printf("true");
+            }
         }
-            scanf("%d", &choice);
-
+        scanf("%d", &choice);
     }
     return 0;
 }
