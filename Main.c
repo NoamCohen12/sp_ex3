@@ -57,7 +57,7 @@ int main()
             char String[100];
             scanf("%s", String);
             int count = StrList_count(user_list, String);
-            printf("%d" , count);
+            printf("%d\n" , count);
         }
         if (choice == 8)
         {
@@ -78,8 +78,7 @@ int main()
         if (choice == 11)
         {
             StrList_free(user_list);
-            //todo check what to print if trt "3" after "free"
-            //-------------------------------------------------------------------------------
+            
             user_list = StrList_alloc();
 
         }

@@ -199,7 +199,7 @@ void StrList_print(const StrList *StrList)
 
     if (StrList->_head == NULL)
     {
-        printf("List is empty\n");
+        //printf("List is empty\n");
         return;
     }
     if (StrList!= NULL){
