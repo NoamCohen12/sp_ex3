@@ -1,12 +1,51 @@
 #include "StrList.h"
 #include <stdio.h>
+
+char *string_input()
+{
+    int length = 10;
+    char *string = (char *)malloc(length * sizeof(char));
+    if (string == NULL)
+    {
+        printf("allocation failure");
+    }
+    int i = 0;
+    char c;
+    while (1)
+    {
+        c = getchar();
+        if (c == ' ' || c == '\n' || c == EOF)
+        {
+            if (i == 0)
+            {
+                continue;
+            }
+            string[i] = '\0';
+            break;
+        }
+        string[i] = c;
+        i++;
+        if (i >= length)
+        {
+            length *= 2;
+            char *string_new = (char *)realloc(string, length * sizeof(char));
+            string = string_new;
+        }
+    }
+    return string;
+}
+
 int main()
 {
-    
     struct _StrList *user_list = StrList_alloc();
     int choice;
+    char *string;
 
-    scanf("%d", &choice);
+    // if the input is not one number
+    if (scanf("%d", &choice) != 1)
+    {
+        printf("Invalid input\n");
+    }
 
     while (choice)
     {
@@ -14,21 +53,21 @@ int main()
         {
             int num_of_words = 0;
             scanf("%d", &num_of_words);
-           // printf("%d", num_of_words);
+            // printf("%d", num_of_words);
             for (size_t i = 0; i < num_of_words; i++)
             {
-                char String[100];
-                scanf("%s", String);
-                StrList_insertLast(user_list, String);
+                string = string_input();
+                StrList_insertLast(user_list, string);
+                free(string);
             }
         }
         if (choice == 2)
         {
             int index = 0;
             scanf("%d", &index);
-            char String[100];
-            scanf("%s", String);
-            StrList_insertAt(user_list, String, index);
+            string = string_input();
+            StrList_insertAt(user_list, string, index);
+            free(string);
         }
         if (choice == 3)
         {
@@ -54,16 +93,16 @@ int main()
         }
         if (choice == 7)
         {
-            char String[100];
-            scanf("%s", String);
-            int count = StrList_count(user_list, String);
-            printf("%d\n" , count);
+            string = string_input();
+            int count = StrList_count(user_list, string);
+            printf("%d\n", count);
+            free(string);
         }
         if (choice == 8)
         {
-            char String[100];
-            scanf("%s", String);
-            StrList_remove(user_list, String);
+            string = string_input();
+            StrList_remove(user_list, string);
+            free(string);
         }
         if (choice == 9)
         {
@@ -78,9 +117,7 @@ int main()
         if (choice == 11)
         {
             StrList_free(user_list);
-            
             user_list = StrList_alloc();
-
         }
         if (choice == 12)
         {
@@ -95,10 +132,14 @@ int main()
             }
             else
             {
-                printf("true");
+                printf("true\n");
             }
         }
-        scanf("%d", &choice);
+        // continue get input from user
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid input\n");
+        }
     }
     return 0;
 }
