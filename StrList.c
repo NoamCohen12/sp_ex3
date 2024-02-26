@@ -170,7 +170,7 @@ void StrList_printAt(const StrList *StrList, int index)
     {
         if (count == index)
         {
-            printf("%s", current->data);
+            printf("%s",current->data);
             return;
         }
         current = current->next;
