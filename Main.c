@@ -46,7 +46,7 @@ int main()
     {
         printf("Invalid input\n");
     }
-
+// if choice == 0 --> while --> false
     while (choice)
     {
         if (choice == 1)
@@ -139,6 +139,7 @@ int main()
         if (scanf("%d", &choice) != 1)
         {
             printf("Invalid input\n");
+            break;
         }
     }
     return 0;

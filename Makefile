@@ -1,16 +1,15 @@
 .PHONY:all clean
 
-all:StrList
+all: StrList
 
-StrList:Main.o StrList.o
+StrList: Main.o StrList.o
 	gcc -Wall -g Main.o StrList.o -o StrList
 
-Main.o:Main.c StrList.h	
+Main.o: Main.c StrList.h	
 	gcc -Wall -g -c Main.c -o Main.o
 
-StrList.o:StrList.c	StrList.h
+StrList.o: StrList.c StrList.h
 	gcc -Wall -g -c StrList.c -o StrList.o
-
 
 
 clean:
