@@ -1,6 +1,7 @@
 #include "StrList.h"
 #include <stdio.h>
 
+//allocate location for word with unkown size
 char *string_input()
 {
     int length = 10;
@@ -53,7 +54,6 @@ int main()
         {
             int num_of_words = 0;
             scanf("%d", &num_of_words);
-            // printf("%d", num_of_words);
             for (size_t i = 0; i < num_of_words; i++)
             {
                 string = string_input();
@@ -142,6 +142,5 @@ int main()
             break;
         }
     }
-    printf("\n");
     return 0;
 }

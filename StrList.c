@@ -148,11 +148,12 @@ void StrList_print(const StrList *StrList)
     }
 
     Node *current = StrList->_head;
-    while (current != NULL)
+    while (current->next != NULL)
     {
         printf("%s ", current->data);
         current = current->next;
     }
+     printf("%s", current->data);
 }
 
 // Print the data of the node at the specified index
